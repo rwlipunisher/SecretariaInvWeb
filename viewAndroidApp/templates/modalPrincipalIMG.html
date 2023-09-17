@@ -1,0 +1,36 @@
+{% load static %}
+<!-- Modal PrincipalImg -->
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+</head>
+<div class="modal fade" id="modalPrincipalImg" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Ateração do Cartaz Principal. Após clicar em Salvar a imagem sera atualizado no Aplicativo </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        </div>
+        <div class="modal-body">
+            <form action="{% url 'savePrincipalImg' %}" enctype="multipart/form-data" method="post">
+                {% csrf_token %}
+                <img id="imgModalPrincipal" src="" width="100%" height="100%" onchange="document.getElementById('inputToServer').value = this.src = window.URL.createObjectURL(this.files[0])">
+                <label for="formFileLg" class="form-label">Atenção a Imagem deve ser em formato PNG com resolução 1920px X 1080px</label>
+                <input class="form-control form-control-lg" id="inputModalImgPrincipal"  name="inputModalImgPrincipal" type="file" accept="image/png"
+                onchange="document.getElementById('imgModalPrincipal').src = window.URL.createObjectURL(this.files[0]); document.getElementById('imgToServer').src = window.URL.createObjectURL(this.files[0])"/>
+                <button type="submit" class="btn-primary">Salvar</button>
+            </form>
+        </div>
+        
+        <div class="modal-footer">
+        
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        </div>
+    </div>
+    </div>
+</div>
+</div>
+</html>

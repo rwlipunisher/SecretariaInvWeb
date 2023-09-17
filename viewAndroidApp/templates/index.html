@@ -1,0 +1,197 @@
+{% load static %}
+{% if message %}
+<script>
+    alert('{{ message }}');
+</script>
+{% endif %}
+<!DOCTYPE html>
+
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+        <title> EstrategistA </title>
+    </head>
+    <body>
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+              <div class="navbar-header">
+                <a class="navbar-brand" href="#">Painel de Controle</a>
+              </div>
+              <ul class="nav navbar-nav">
+                <li><a>Adm Conteudo</a></li>
+                <li><a>Adm Notificacoes</a></li>
+                <li><a>Gerenciador de Membros</a></li>
+                <li><a>Gerenciador de Grupos</a></li>
+                <li><a>Suporte de Usuarios</a></li>
+              </ul>
+              <ul class="nav navbar-nav navbar-right"> 
+                <li><a href='/logout'> Sair </a></li>
+              </ul>
+              
+            </div>
+        </nav>
+        <div class="container" style="background-color: black; padding-left: 0px; padding-left: 0px;">
+            <nav class="navbar navbar-default" style="background-color: black; margin-left: 0px; border: 0px">
+                <div class="row">
+                    <div class="col-sm-2" style="padding-top: 10px;">
+                        <img src="/static/images/menuAppVisualizacao.png" width="30%" height="20%">
+                    </div>
+                    <div class="col-sm-10">
+                        <img src="/static/images/logonovavida.png" width="15%" height="5%">
+                    </div>
+                </div>
+            </nav>
+            <div class="container">
+                <div class="row">
+                    <button style="background-color: black" type="button" data-toggle="modal" data-target="#modalPrincipalImg">
+                        <img  width="100%" height="" style="padding-bottom: 20px;" id="principalImg" src="{{ principal }}" 
+                        onload="document.getElementById('imgModalPrincipal').src=this.src">
+                    </button>
+                </div>
+                <!-- Modal da Imagem Principal -->
+                <div class="modal fade" id="modalPrincipalImg" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h1 class="modal-title" id="exampleModalLongTitle">Cartaz Principal</h1>
+                        </div>
+                        <div class="modal-body">
+                            <form action="{% url 'savePrincipalImg' %}" enctype="multipart/form-data" method="post">
+                                {% csrf_token %}
+                                <img id="imgModalPrincipal" src="" width="100%" height="100%" onchange="document.getElementById('inputToServer').value = this.src = window.URL.createObjectURL(this.files[0])">
+                                <h6 style="color: black;">A imagem deve ser em formato PNG com resolução 1920px X 1080px</h6>
+                                <input class="form-control form-control-lg" id="inputModalImgPrincipal"  name="inputModalImgPrincipal" type="file" accept="image/png"
+                                onchange="document.getElementById('imgModalPrincipal').src = window.URL.createObjectURL(this.files[0]); document.getElementById('imgToServer').src = window.URL.createObjectURL(this.files[0])"/>
+                                <button type="submit" class="btn-primary">Salvar</button>
+                            </form>
+                        </div>
+                        
+                        <div class="modal-footer">
+                        
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <h1 style="color: white"> Destaques </h1>
+
+            <div class="container">
+                <div class="row" >
+                    <div class="col-sm-6" style="padding: 40px;">
+                        <img hidden="hidden" src="{{ card11 }}" id="card11">
+                        <button type="button" data-toggle="modal" data-target="#modalSecundaryImg" style="background-color: black;"
+                        onclick="document.getElementById('modalImgCard1').src=document.getElementById('imgCard1').src;
+                        document.getElementById('modalImgCard11').src=document.getElementById('card11').src;
+                        document.getElementById('wcardin').value = 'Col1'">
+                            <img id="imgCard1" src="{{ card1 }}" width="100%" height="100%" style="border-radius: 5%;">
+                        </button>
+                    </div>
+                    <div class="col-sm-6" style="padding: 40px;">
+                        <img hidden="hidden" src="{{ card21 }}" id="card21">
+                        <button style="background-color: black;" type="button" data-toggle="modal" data-target="#modalSecundaryImg"
+                        onclick="document.getElementById('modalImgCard1').src=document.getElementById('imgCard2').src;
+                        document.getElementById('modalImgCard11').src=document.getElementById('card21').src;
+                        document.getElementById('wcardin').value = 'Col2'">
+                            <img id="imgCard2" src="{{ card2 }}" width="100%" height="100%" style="border-radius: 5%;">
+                        </button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6" style="padding: 40px;">
+                        <img hidden="hidden" src="{{ card31 }}" id="card31">
+                        <button type="button" data-toggle="modal" data-target="#modalSecundaryImg" style="background-color: black;"
+                        onclick="document.getElementById('modalImgCard1').src=document.getElementById('imgCard3').src;
+                        document.getElementById('modalImgCard11').src=document.getElementById('card31').src;
+                        document.getElementById('wcardin').value = 'Col3'">
+                            <img id="imgCard3" src="{{ card3 }}"  width="100%" height="100%" style="border-radius: 5%;">
+                        </button> 
+                    </div>
+                    <div class="col-sm-6" style="padding: 40px;">
+                        <img hidden="hidden" src="{{ card41 }}" id="card41" >
+                        <button type="button" data-toggle="modal" data-target="#modalSecundaryImg" style="background-color: black;"
+                        onclick="document.getElementById('modalImgCard1').src=document.getElementById('imgCard4').src;
+                        document.getElementById('modalImgCard11').src=document.getElementById('card41').src;
+                        document.getElementById('wcardin').value = 'Col4'">
+                            <img id="imgCard4" src="{{ card4 }}" width="100%" height="100%" style="border-radius: 5%;">
+                        </button>
+                    </div>
+                </div>
+                <!-- Modal Imagens Secundarias -->
+                <div class="modal fade" id="modalSecundaryImg" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h1> Destaques </h1>
+                        </div>
+                        <div class="modal-body">
+                            <form action="{% url 'saveSecondaryImg' %}" method="post" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <img src="" id="modalImgCard1" style="max-height:100%" width="100%">
+                                        <h6>Atenção a Imagem deve ser em formato PNG com resolução 1080px X 1080px</h6>
+                                        <input id="inputCard1" name="inputCard1" class="form-control form-control-lg" type="file" onchange="document.getElementById('modalImgCard1').src = window.URL.createObjectURL(this.files[0])">
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <img src="" id="modalImgCard11"  style="max-height:100%" width="100%" >
+                                        <h6>Atenção a Imagem deve ser em formato PNG com resolução 1587px X 2245px</h6>
+                                        <input id="inputCard11" name="inputCard11" class="form-control form-control-lg" type="file" onchange="document.getElementById('modalImgCard11').src = window.URL.createObjectURL(this.files[0])">
+                                    </div>
+                                </div>
+                                <input id="wcardin" name="wcardin" value="" type="hidden">
+                                <div style="text-align: center;">
+                                    <button  type="submit" class="btn btn-primary">Salvar Mudanças </button>
+                                </div>
+                            </form>
+                        <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+            <h1 style="color: white;"> Grupos de Vida </h1>
+            <div class="container" style="
+            background-color: black;
+            left: 10px;
+            top: 10px;
+            width: calc(100% - 200px);
+            height: auto;
+            overflow-x: auto;
+            white-space: nowrap;">
+            <style>
+                .item {
+                    background-color: black;
+                    display: inline-block;
+                    padding-left: 20px;
+                    padding-right: 20px;
+                }
+            </style>
+                <div class="item"><img src="/static/images/card31693942074.8732839.png" width="25%" height="25%"></div>
+                <div class="item"><p class="itemContent">Text</p></div>
+                <div class="item"><p class="itemContent">Text</p></div>
+                <div class="item"><p class="itemContent">Text</p></div>
+                <div class="item"><p class="itemContent">Text</p></div>
+                <div class="item"><p class="itemContent">Text</p></div>
+                <div class="item"><p class="itemContent">Text</p></div>
+                <div class="item"><p class="itemContent">Text</p></div>
+                <div class="item"><p class="itemContent">Text</p></div>
+                <div class="item"><p class="itemContent">Text</p></div>
+                <div class="item"><p class="itemContent">Text</p></div>
+                <div class="item"><p class="itemContent">Text</p></div>
+                <div class="item"><p class="itemContent">Text</p></div>
+            
+            </div>
+        </div>
+
+    </body>
+</html>
